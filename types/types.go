@@ -15,6 +15,12 @@ const (
 	hexBitSize64 = 64
 )
 
+// OffChainDataRef represents off chain data ref that is stored on eigenda
+type OffChainDataRef struct {
+	Key   common.Hash
+	Value []byte
+}
+
 // OffChainData represents some data that is not stored on chain and should be preserved
 type OffChainData struct {
 	Key   common.Hash

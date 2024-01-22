@@ -11,6 +11,7 @@ import (
 	"github.com/0xPolygon/cdk-data-availability/client"
 	"github.com/0xPolygon/cdk-data-availability/config"
 	"github.com/0xPolygon/cdk-data-availability/db"
+	"github.com/0xPolygon/cdk-data-availability/eigenda"
 	"github.com/0xPolygon/cdk-data-availability/etherman"
 	"github.com/0xPolygon/cdk-data-availability/log"
 	"github.com/0xPolygon/cdk-data-availability/rpc"
@@ -63,6 +64,11 @@ func start(cliCtx *cli.Context) error {
 		panic(err)
 	}
 	setupLog(c.Log)
+
+	eigenda, err := eigenda.New(c.EigenDA)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Prepare DB
 	pg, err := db.InitContext(cliCtx.Context, c.DB)
@@ -132,7 +138,7 @@ func start(cliCtx *cli.Context) error {
 		[]rpc.Service{
 			{
 				Name:    sync.APISYNC,
-				Service: sync.NewSyncEndpoints(storage),
+				Service: sync.NewSyncEndpoints(storage, eigenda),
 			},
 			{
 				Name: datacom.APIDATACOM,
@@ -140,6 +146,7 @@ func start(cliCtx *cli.Context) error {
 					storage,
 					pk,
 					sequencerTracker,
+					eigenda,
 				),
 			},
 		},
