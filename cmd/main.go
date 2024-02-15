@@ -10,6 +10,7 @@ import (
 	dataavailability "github.com/0xPolygon/cdk-data-availability"
 	"github.com/0xPolygon/cdk-data-availability/config"
 	"github.com/0xPolygon/cdk-data-availability/db"
+	"github.com/0xPolygon/cdk-data-availability/eigenda"
 	"github.com/0xPolygon/cdk-data-availability/etherman"
 	"github.com/0xPolygon/cdk-data-availability/log"
 	"github.com/0xPolygon/cdk-data-availability/rpc"
@@ -119,6 +120,13 @@ func start(cliCtx *cli.Context) error {
 	go batchSynchronizer.Start()
 	cancelFuncs = append(cancelFuncs, batchSynchronizer.Stop)
 
+	eigenda, err := eigenda.New(storage, c.EigenDA)
+	if err != nil {
+		log.Fatal(err)
+	}
+	go eigenda.Start()
+	cancelFuncs = append(cancelFuncs, eigenda.Stop)
+
 	// Register services
 	server := rpc.NewServer(
 		c.RPC,
@@ -133,6 +141,7 @@ func start(cliCtx *cli.Context) error {
 					storage,
 					pk,
 					sequencerTracker,
+					eigenda,
 				),
 			},
 		},

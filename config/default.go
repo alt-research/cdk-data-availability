@@ -40,6 +40,16 @@ Port = 8444
 ReadTimeout = "60s"
 WriteTimeout = "60s"
 MaxRequestsPerIPAndSecond = 500
+
+[EigenDA]
+EigenDARpc = "disperser-goerli.eigenda.xyz:443"
+EigenDARpcInsecure = false
+EigenDAQuorumID = 0
+EigenDAAdversaryThreshold = 25
+EigenDAQuorumThreshold = 50      
+EigenDAStatusQueryRetryInterval = "10s"
+EigenDAStatusQueryTimeout = "120s"
+EigenDANumWorker = 10
 `
 
 // Default parses the default configuration values.

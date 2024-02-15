@@ -1,8 +1,9 @@
 module github.com/0xPolygon/cdk-data-availability
 
-go 1.19
+go 1.21
 
 require (
+	github.com/Layr-Labs/eigenda/api v0.3.0
 	github.com/didip/tollbooth/v6 v6.1.2
 	github.com/ethereum/go-ethereum v1.12.1
 	github.com/gobuffalo/packr/v2 v2.8.3
@@ -18,6 +19,7 @@ require (
 	github.com/umbracle/ethgo v0.1.4-0.20230712173909-df37dddf16f0
 	github.com/urfave/cli/v2 v2.25.7
 	go.uber.org/zap v1.24.0
+	google.golang.org/grpc v1.58.3
 )
 
 require (
@@ -36,6 +38,7 @@ require (
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/gobuffalo/logger v1.0.7 // indirect
 	github.com/gobuffalo/packd v1.0.2 // indirect
+	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
@@ -88,6 +91,7 @@ require (
 	golang.org/x/term v0.10.0 // indirect
 	golang.org/x/text v0.11.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20230711160842-782d3b101e98 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect

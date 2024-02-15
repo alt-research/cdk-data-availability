@@ -112,3 +112,20 @@ func (db *DB) StoreLastProcessedBlock(ctx context.Context, task string, block ui
 	}
 	return nil
 }
+
+// StoreEigenDARefs stores and array of eigenda ref in the Db
+func (db *DB) StoreEigenDARef(ctx context.Context, ref types.EigenDARef, dbTx pgx.Tx) error {
+	const storeEigendaRefSQL = `
+		INSERT INTO eigenda.data_ref (key, header_hash, blob_index)
+		VALUES ($1, $2, $3)
+		ON CONFLICT (key) DO NOTHING;
+	`
+	_, err := dbTx.Exec(
+		ctx,
+		storeEigendaRefSQL,
+		ref.Key.Hex(),
+		common.Bytes2Hex(ref.BatchHeaderHash),
+		ref.BlobIndex,
+	)
+	return err
+}
